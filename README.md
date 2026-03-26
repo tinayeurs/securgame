@@ -1,48 +1,53 @@
-# SecurGame
+# SecurGame (PHP + MySQL)
 
-Plateforme SaaS complète de vente et gestion de serveurs de jeux (Minecraft, FiveM, Hytale, CSGO, Rust, Garry's Mod), avec portail client/admin, facturation et intégrations Pterodactyl/Stripe.
+SecurGame est un site complet (front public, espace client, espace admin) recodé en **PHP + MySQL** avec une architecture MVC légère, sans dépendance Node.js obligatoire à l'exécution.
 
 ## Stack
-- Next.js 14 + React 18 + TypeScript strict
-- Tailwind CSS (thème vert clair premium)
-- Prisma ORM + PostgreSQL
-- Auth session JWT httpOnly
-- Adaptateurs d'intégration Pterodactyl/Stripe avec mode mock
+- PHP 8.1+
+- MySQL 8+
+- phpMyAdmin (administration BDD)
+- HTML/CSS/JS (responsive, thème clair vert)
 
-## Modules livrés
-- **Site public**: homepage, catalogue, pages jeu, FAQ, contact.
-- **Auth**: inscription, connexion, session sécurisée.
-- **Espace client**: dashboard, détail service, factures, profil.
-- **Espace admin**: dashboard, gestion produits/factures, test intégrations.
-- **Facturation**: endpoint paiement facture + webhook Stripe.
-- **Sécurité**: validation Zod, middleware de protection des routes, aucune clé hardcodée en frontend.
+## Arborescence
+- `app/Core` : routeur, sécurité session/CSRF, vues
+- `app/Controllers` : logique HTTP
+- `app/Models` : accès données PDO (requêtes préparées)
+- `app/Views` : pages publiques + client + admin
+- `public` : point d'entrée (`index.php`)
+- `config` : configuration app/db
+- `database/schema.sql` : installation + données de démonstration
+- `docs` : documentation d'installation et d'administration
 
-## Lancement local
-```bash
-cp .env.example .env
-./scripts/dev.sh
-```
+## Installation locale
+1. Copier la config exemple:
+   ```bash
+   cp config/config.example.php config/config.php
+   ```
+2. Importer `database/schema.sql` dans MySQL (via phpMyAdmin ou CLI).
+3. Ajuster les accès DB dans `config/config.php`.
+4. Lancer le serveur:
+   ```bash
+   php -S localhost:8000 -t public
+   ```
+5. Ouvrir `http://localhost:8000`.
 
-Ou manuellement:
-```bash
-docker compose up -d postgres
-npm install
-npm run prisma:generate
-npm run prisma:migrate -- --name init
-npm run prisma:seed
-npm run dev
-```
-
-## Comptes de dev
+## Comptes de démonstration
 - Admin: `admin@securgame.local`
-- Mot de passe seed: `Admin1234!`
+- Client: `client@securgame.local`
+- Mot de passe: `SecurGame123!`
 
-## Architecture
-- `app/` routes Next.js (public + auth + client + admin + API)
-- `lib/` logique métier (auth, validation, permissions, adapters)
-- `prisma/` schéma DB et seed
-- `docs/` guides intégration et administration
+## Sécurité implémentée
+- PDO + requêtes préparées
+- sessions sécurisées (HttpOnly, SameSite)
+- hash de mot de passe `password_hash`
+- vérification rôles admin/client
+- CSRF sur formulaires sensibles
+- validation côté serveur
 
-## Notes importantes
-- Les identifiants externes sont configurables plus tard dans l'admin.
-- En mode dev, les intégrations tombent en mock propre pour éviter tout blocage.
+## Intégrations préparées
+- Écran admin: `/admin/integrations`
+- Paramètres prêts pour Pterodactyl et Stripe (mode test/production)
+- Logique en placeholder tant que clés non configurées
+
+## Compatibilité hébergement
+Compatible avec XAMPP / WAMP / Laragon / MAMP et hébergement PHP mutualisé classique.

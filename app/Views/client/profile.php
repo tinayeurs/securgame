@@ -1,0 +1,2 @@
+<h1>Mon profil</h1>
+<form method="post" class="card" action="/client/profile"><input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrfToken) ?>"><label>Nom</label><input name="name" value="<?= htmlspecialchars($currentUser['name']) ?>" required><label>Email</label><input type="email" name="email" value="<?= htmlspecialchars($currentUser['email']) ?>" required><button class="btn" type="submit">Mettre à jour</button></form>

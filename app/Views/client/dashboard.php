@@ -1,0 +1,3 @@
+<h1>Espace client</h1>
+<div class="grid grid-3"><div class="card"><h3>Services</h3><p><?= count($services) ?></p></div><div class="card"><h3>Commandes</h3><p><?= count($orders) ?></p></div><div class="card"><h3>Factures</h3><p><?= count($invoices) ?></p></div></div>
+<table class="table"><tr><th>Service</th><th>Jeu</th><th>État</th><th>Expire</th></tr><?php foreach($services as $s): ?><tr><td><?= htmlspecialchars($s['offer_name']) ?></td><td><?= htmlspecialchars($s['game_name']) ?></td><td><span class="badge"><?= htmlspecialchars($s['status']) ?></span></td><td><?= htmlspecialchars((string)$s['expires_at']) ?></td></tr><?php endforeach; ?></table>

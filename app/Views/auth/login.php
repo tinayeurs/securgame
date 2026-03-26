@@ -1,0 +1,2 @@
+<h1>Connexion</h1>
+<form method="post" class="card" action="/login"><input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrfToken) ?>"><label>Email</label><input name="email" type="email" required><label>Mot de passe</label><input name="password" type="password" required><button class="btn" type="submit">Se connecter</button><p><a href="/forgot-password">Mot de passe oublié</a></p></form>

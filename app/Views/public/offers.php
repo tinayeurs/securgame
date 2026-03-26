@@ -1,0 +1,2 @@
+<h1>Catalogue des offres</h1>
+<div class="grid grid-3"><?php foreach ($offers as $o): ?><div class="card"><h3><?= htmlspecialchars($o['name']) ?></h3><p><strong><?= htmlspecialchars($o['game_name']) ?></strong> — <?= number_format((float)$o['price_monthly'],2) ?> €/mois</p><p><?= (int)$o['ram_mb'] ?> MB RAM | <?= (int)$o['cpu_cores'] ?> vCPU | <?= (int)$o['storage_gb'] ?> GB</p><span class="badge">Actif</span></div><?php endforeach; ?></div>
