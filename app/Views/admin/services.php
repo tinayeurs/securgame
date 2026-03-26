@@ -1,0 +1,2 @@
+<h1>Services</h1>
+<table class="table"><tr><th>#</th><th>Client</th><th>Offre</th><th>Statut</th><th>Provisioning</th><th>Expire</th></tr><?php foreach($services as $s): ?><tr><td><?= (int)$s['id'] ?></td><td><?= htmlspecialchars($s['email']) ?></td><td><?= htmlspecialchars($s['offer_name']) ?></td><td><?= htmlspecialchars($s['status']) ?></td><td><?= htmlspecialchars($s['provisioning_status']) ?></td><td><?= htmlspecialchars((string)$s['expires_at']) ?></td></tr><?php endforeach; ?></table>

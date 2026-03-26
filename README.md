@@ -1,48 +1,57 @@
-# SecurGame
+# SecurGame - Plateforme SaaS d'hébergement de serveurs de jeux (PHP + MySQL)
 
-Plateforme SaaS complète de vente et gestion de serveurs de jeux (Minecraft, FiveM, Hytale, CSGO, Rust, Garry's Mod), avec portail client/admin, facturation et intégrations Pterodactyl/Stripe.
+SecurGame est une plateforme complète en PHP MVC + MySQL, pensée comme un outil métier d'hébergement (site public + tunnel de commande + facturation + espace client + panel admin séparé).
+
+## Fonctionnalités clés
+- **Site public commercial** : accueil, offres, pages jeux, comparatif, FAQ, contact.
+- **Authentification séparée** :
+  - Client : `/login`, `/register`
+  - Admin : `/admin/login`
+- **Tunnel de commande** : sélection d'offre → génération commande/facture → paiement → création service.
+- **Provisioning automatisé (architecture prête)** : statut provisioning + logs métier + module dédié.
+- **Espace client** : dashboard, services, détail service, commandes, factures, paiements, profil.
+- **Espace admin** : dashboard, clients, admins, jeux, produits, offres, commandes, services, facturation, intégrations.
+- **Intégrations préparées** : Pterodactyl + Stripe (config depuis l'admin, sans secret hardcodé).
 
 ## Stack
-- Next.js 14 + React 18 + TypeScript strict
-- Tailwind CSS (thème vert clair premium)
-- Prisma ORM + PostgreSQL
-- Auth session JWT httpOnly
-- Adaptateurs d'intégration Pterodactyl/Stripe avec mode mock
-
-## Modules livrés
-- **Site public**: homepage, catalogue, pages jeu, FAQ, contact.
-- **Auth**: inscription, connexion, session sécurisée.
-- **Espace client**: dashboard, détail service, factures, profil.
-- **Espace admin**: dashboard, gestion produits/factures, test intégrations.
-- **Facturation**: endpoint paiement facture + webhook Stripe.
-- **Sécurité**: validation Zod, middleware de protection des routes, aucune clé hardcodée en frontend.
-
-## Lancement local
-```bash
-cp .env.example .env
-./scripts/dev.sh
-```
-
-Ou manuellement:
-```bash
-docker compose up -d postgres
-npm install
-npm run prisma:generate
-npm run prisma:migrate -- --name init
-npm run prisma:seed
-npm run dev
-```
-
-## Comptes de dev
-- Admin: `admin@securgame.local`
-- Mot de passe seed: `Admin1234!`
+- PHP 8.1+
+- MySQL 8+
+- phpMyAdmin (recommandé)
+- HTML/CSS/JS (sans dépendance Node.js obligatoire à l'exécution)
 
 ## Architecture
-- `app/` routes Next.js (public + auth + client + admin + API)
-- `lib/` logique métier (auth, validation, permissions, adapters)
-- `prisma/` schéma DB et seed
-- `docs/` guides intégration et administration
+- `app/Core` : Router, Controller, View, Database(PDO), Session, CSRF, Auth
+- `app/Controllers` : public, auth client, auth admin, checkout, client, admin
+- `app/Models` : couches PDO préparées
+- `app/Services` : logique métier checkout/paiement/provisioning
+- `app/Views` : public, auth, checkout, client, admin
+- `public` : front controller + assets
+- `database/schema.sql` : schéma complet + seed demo
+- `docs` : guides installation/phpMyAdmin/admin
 
-## Notes importantes
-- Les identifiants externes sont configurables plus tard dans l'admin.
-- En mode dev, les intégrations tombent en mock propre pour éviter tout blocage.
+## Installation rapide
+1. Copier la config:
+```bash
+cp config/config.example.php config/config.php
+```
+2. Importer `database/schema.sql` dans MySQL.
+3. Configurer les accès DB dans `config/config.php`.
+4. Lancer:
+```bash
+php -S localhost:8000 -t public
+```
+5. Ouvrir `http://localhost:8000`.
+
+## Comptes de démonstration
+- **Client** : `client@securgame.local` / `SecurGame123!`
+- **Admin** : `admin@securgame.local` / `SecurGame123!`
+
+## Sécurité
+- PDO + requêtes préparées
+- hash mot de passe (`password_hash` / `password_verify`)
+- CSRF sur formulaires sensibles
+- séparation stricte sessions/guards client vs admin
+- contrôle d'accès routes sensibles
+
+## Remarque provisioning
+Le provisioning est fonctionnellement orchestré (paiement -> service -> logs -> changement statut) avec un mode mock prêt à brancher sur l'API Pterodactyl.

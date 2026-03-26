@@ -1,0 +1,2 @@
+<h1>Commandes</h1>
+<table class="table"><tr><th>#</th><th>Client</th><th>Total</th><th>Statut</th><th>Date</th></tr><?php foreach($orders as $o): ?><tr><td><?= (int)$o['id'] ?></td><td><?= htmlspecialchars($o['email']) ?></td><td><?= number_format((float)$o['total_amount'],2) ?>€</td><td><?= htmlspecialchars($o['status']) ?></td><td><?= htmlspecialchars($o['created_at']) ?></td></tr><?php endforeach; ?></table>

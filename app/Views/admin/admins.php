@@ -1,0 +1,2 @@
+<h1>Administrateurs</h1>
+<table class="table"><tr><th>ID</th><th>Nom</th><th>Email</th><th>Rôle</th><th>Statut</th></tr><?php foreach($admins as $a): ?><tr><td><?= (int)$a['id'] ?></td><td><?= htmlspecialchars($a['name']) ?></td><td><?= htmlspecialchars($a['email']) ?></td><td><?= htmlspecialchars($a['role_name']) ?></td><td><?= htmlspecialchars($a['status']) ?></td></tr><?php endforeach; ?></table>
