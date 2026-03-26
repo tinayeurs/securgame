@@ -1,0 +1,2 @@
+<h1>Clients et utilisateurs</h1>
+<table class="table"><tr><th>ID</th><th>Nom</th><th>Email</th><th>Rôle</th><th>Créé</th></tr><?php foreach($users as $u): ?><tr><td><?= (int)$u['id'] ?></td><td><?= htmlspecialchars($u['name']) ?></td><td><?= htmlspecialchars($u['email']) ?></td><td><?= htmlspecialchars($u['role_name']) ?></td><td><?= htmlspecialchars($u['created_at']) ?></td></tr><?php endforeach; ?></table>

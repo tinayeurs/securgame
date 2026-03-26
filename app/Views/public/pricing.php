@@ -1,0 +1,2 @@
+<h1>Tarifs</h1><p>Comparez nos plans mensuels.</p>
+<table class="table"><tr><th>Offre</th><th>Jeu</th><th>Ressources</th><th>Prix/mois</th></tr><?php foreach($offers as $o): ?><tr><td><?= htmlspecialchars($o['name']) ?></td><td><?= htmlspecialchars($o['game_name']) ?></td><td><?= (int)$o['ram_mb'] ?>MB / <?= (int)$o['cpu_cores'] ?>CPU / <?= (int)$o['storage_gb'] ?>GB</td><td><?= number_format((float)$o['price_monthly'],2) ?>€</td></tr><?php endforeach; ?></table>

@@ -1,0 +1,2 @@
+<h1>Inscription</h1>
+<form method="post" class="card" action="/register"><input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrfToken) ?>"><label>Nom</label><input name="name" required><label>Email</label><input name="email" type="email" required><label>Mot de passe (8+)</label><input name="password" type="password" required><button class="btn" type="submit">Créer mon compte</button></form>

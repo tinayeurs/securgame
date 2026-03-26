@@ -1,0 +1,3 @@
+<h1>Gestion des jeux</h1>
+<form method="post" class="card"><input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrfToken) ?>"><label>Nom</label><input name="name" required><label>Slug</label><input name="slug" required><label>Description</label><textarea name="description"></textarea><button class="btn" type="submit">Ajouter jeu</button></form>
+<table class="table"><tr><th>ID</th><th>Nom</th><th>Slug</th><th>Actif</th></tr><?php foreach($games as $g): ?><tr><td><?= (int)$g['id'] ?></td><td><?= htmlspecialchars($g['name']) ?></td><td><?= htmlspecialchars($g['slug']) ?></td><td><?= (int)$g['is_active'] ? 'Oui':'Non' ?></td></tr><?php endforeach; ?></table>

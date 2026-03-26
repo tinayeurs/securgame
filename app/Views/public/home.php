@@ -1,0 +1,2 @@
+<section class="card"><h1>Hébergement de serveurs de jeux premium</h1><p>Plateforme claire et moderne pour Minecraft, FiveM, Hytale, CSGO, Rust et Garry's Mod.</p></section>
+<section class="grid grid-3"><?php foreach (array_slice($games,0,6) as $g): ?><article class="card"><h3><?= htmlspecialchars($g['name']) ?></h3><p><?= htmlspecialchars((string)$g['description']) ?></p><a class="btn" href="/game?slug=<?= urlencode($g['slug']) ?>">Voir offres</a></article><?php endforeach; ?></section>
